@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {postBooking} from './BookingService.js'
+import './BookingForm.css'
 
 const BookingForm = ({addBooking}) => {
 
@@ -49,13 +50,12 @@ const BookingForm = ({addBooking}) => {
     }
     return (
         <form onSubmit={onSubmit} id='bookings-form'>
-            <h2> add a booking </h2>
+            <h2> 🏨 </h2>
+            <h3> 🛎️ </h3>
             <div className='formWrap'>
-                <label htmlFor='name'>
-                    name: 
-                </label>
                 <input 
                     onChange={onChange}
+                    placeholder='name'
                     type='text'
                     id='name'
                     name='name'
@@ -63,11 +63,9 @@ const BookingForm = ({addBooking}) => {
                 />
             </div>
             <div className='formWrap'>
-                <label htmlFor='email'>
-                    email: 
-                </label>
                 <input 
                     onChange={onChange}
+                    placeholder='email'
                     type='text'
                     id='email'
                     name='email'

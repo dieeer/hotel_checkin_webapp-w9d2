@@ -1,0 +1,27 @@
+h2 {
+    font-size: 3rem;
+}
+
+.formWrap {
+    display: flex;
+    grid-template-columns: 1fr;
+}
+
+.formWrap > input {
+    width: 256px;
+    border-radius:8px;
+    height: 32px;
+}
+
+#save {
+    width:128px; 
+    font-weight: bold;
+    color: white;
+    background-color: hotpink;
+    border-radius:8px;
+    border-style: none;
+}
+
+#save:hover {
+    background-color:violet
+}
