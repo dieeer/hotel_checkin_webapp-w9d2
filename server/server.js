@@ -1,79 +1,22 @@
 const express = require('express');
-const ObjectID = require('mongodb').ObjectID;
+const app = express();
 
-const createRouter = function (collection) {
+const cors = require('cors');
+app.use(cors());
+app.use(express.json());
 
-  const router = express.Router();
+const MongoClient = require('mongodb').MongoClient;
+const createRouter = require('./helpers/create_router.js');
 
-  router.get('/', (req, res) => {
-    collection
-      .find()
-      .toArray()
-      .then((docs) => res.json(docs))
-      .catch((err) => {
-        console.error(err);
-        res.status(500);
-        res.json({ status: 500, error: err });
-      });
-  });
+MongoClient.connect('mongodb://127.0.0.1:27017', { useUnifiedTopology: true })
+  .then((client) => {
+    const db = client.db('hotel');
+    const bookingsCollection = db.collection('bookings');
+    const bookingsRouter = createRouter(bookingsCollection);
+    app.use('/api/bookings', bookingsRouter);
+  })
+  .catch(console.err);
 
-  router.get('/:id', (req, res) => {
-    const id = req.params.id;
-    collection
-      .findOne({ _id: ObjectID(id) })
-      .then((doc) => res.json(doc))
-      .catch((err) => {
-        console.error(err);
-        res.status(500);
-        res.json({ status: 500, error: err });
-      });
-  });
-
-  router.post("/", (req, res) => {
-    collection
-    .insertOne(req.body)
-    .then((result) => res.json(result.ops[0]))
-    .catch((err) => {
-      console.error(err);
-      res.status(500);
-      res.json({ status: 500, error: err });
-    });
-  });
-
-  router.delete('/:id', (req, res) => {
-    const id = req.params.id;
-    collection
-    .deleteOne({ _id: ObjectID(id) })
-    .then(result => {
-      res.json(result)
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500);
-      res.json({ status: 500, error: err });
-    });
-  });
-
-  // router.put('/:id', (req, res) => {
-  //   const id = req.params.id;
-  //   const updatedData = req.body;
-  //   collection
-  //   .updateOne(
-  //     { _id: ObjectId(id)},
-  //     { $set: updatedData },
-  //   )
-  //   .then((result) => {
-  //     res.json(result)
-  //   })
-  //   .catch((err) => {
-  //     console.error(err);
-  //     res.status(500);
-  //     res.json({ status: 500, error: err });
-  //   });
-  // })
-
-
-  return router;
-};
-
-module.exports = createRouter;
+app.listen(9000, function () {
+  console.log(`Listening on port ${ this.address().port }`);
+});

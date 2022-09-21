@@ -1,6 +1,7 @@
 use hotel;
 db.dropDatabase();
 
+// Insert bookings to the database
 db.bookings.insertMany([
     {
         name: "orangina appleton",
