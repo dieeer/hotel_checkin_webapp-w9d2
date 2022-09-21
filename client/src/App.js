@@ -6,6 +6,7 @@ import {getBookings} from './BookingService';
 import BookingList from './BookingList'
 import BookingCard from "./BookingCard";
 
+// Creates a new app.
 function App() {
 
   const [hotelBookings, setHotelBookings] = useState([]);
@@ -17,12 +18,14 @@ function App() {
     })
   }, []);
 
+  // Add a booking to the hotel.
   const addBooking = (booking) =>{
     const temp = hotelBookings.map(s => s);
     temp.push(booking);
     setHotelBookings(temp);
   }
 
+  // Delete the hotel booking.
   const removeBooking = (id) => {
     const temp = hotelBookings.map(s =>s);
     const indexToDel = temp.map(s => s._id).indexOf(id);

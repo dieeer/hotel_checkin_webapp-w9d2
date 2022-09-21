@@ -13,7 +13,7 @@ const BookingCard = ({booking, removeBooking}) => {
         <>
             <h1>{booking.name}</h1>
             <p>email: {booking.email}</p>
-            <p>checked in: {booking.checked_in ? '✅' : '❌'}</p>
+            <p>checked in?: {booking.checked_in ? '✅' : '❌'}</p>
             <button onClick={handleDelete}> 🗑 </button>
             {/* <hr></hr> */}
         </>

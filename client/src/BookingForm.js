@@ -4,6 +4,7 @@ import {postBooking} from './BookingService.js'
 const BookingForm = ({addBooking}) => {
 
 
+        // Adds a state to the user s state.
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -29,7 +30,6 @@ const BookingForm = ({addBooking}) => {
         const value = target.type === 'checkbox' ? target.checked : target.value;
         // Creates a new formData object with the target name s value.
         const newFormData = {...formData, [target.name]: value}
-        console.log(newFormData)
         setFormData(newFormData);
     }
 
